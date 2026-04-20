@@ -1,0 +1,6 @@
+{
+    "files": [
+        "rl_strategy_gui.py",
+        "form.ui"
+    ]
+}

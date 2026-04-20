@@ -1,0 +1,390 @@
+{
+  "features": [
+    {
+      "name": "terminal",
+      "description": "Is the state a terminal state",
+      "type": "bool",
+      "print_string": "{'T' if self.terminal else 'R'}",
+      "for_training": false,
+      "is_categorical": true
+    },
+    {
+      "name": "track",
+      "description": "Track the state is on",
+      "type": "Track",
+      "print_string": "{self.track}",
+      "for_training": false,
+      "is_categorical": true
+    },
+    {
+      "name": "track_category",
+      "description": "Category of the track",
+      "type": "TrackCategory",
+      "print_string": "{self.track_category:<4}",
+      "for_training": false,
+      "is_categorical": true
+    },
+    {
+      "name": "year",
+      "description": "Year of the race",
+      "type": "int",
+      "print_string": "{self.year}",
+      "for_training": false,
+      "is_ordinal": true,
+      "ordinal_values": {
+        "min": 2021,
+        "max": 2023,
+        "step": 1
+      }
+    },
+    {
+      "name": "safety_car",
+      "description": "Status of the safety car",
+      "type": "SafetyCarStatus",
+      "print_string": "{self.safety_car}",
+      "for_training": true,
+      "is_categorical": true
+    },
+    {
+      "name": "position",
+      "description": "Position of the car",
+      "type": "int",
+      "print_string": "P{self.position:<2}",
+      "for_training": false,
+      "is_ordinal": true,
+      "ordinal_values": {
+        "min": 1,
+        "max": 20,
+        "step": 1
+      }
+    },
+    {
+      "name": "scaled_position",
+      "description": "Scaled position of the car [0, 1]",
+      "type": "float",
+      "print_string": "SP{self.scaled_position:<6.3f}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "name": "pre_pitstop_position",
+      "description": "Position of the car before the last pitstop",
+      "type": "int",
+      "print_string": "PP{self.pre_pitstop_position:<2}",
+      "for_training": false,
+      "is_ordinal": true,
+      "ordinal_values": {
+        "min": 1,
+        "max": 20,
+        "step": 1
+      }
+    },
+    {
+      "name": "predicted_finish",
+      "description": "Predicted finishing position of the car",
+      "type": "int",
+      "print_string": "PF{self.predicted_finish:<2}",
+      "for_training": false,
+      "is_ordinal": true,
+      "ordinal_values": {
+        "min": 1,
+        "max": 20,
+        "step": 1
+      }
+    },
+    {
+      "name": "partial_lap_number",
+      "description": "Number of partial laps completed",
+      "type": "float",
+      "print_string": "L{self.partial_lap_number:<5.2f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 100
+      }
+    },
+    {
+      "name": "race_progress",
+      "description": "Percentage of the race completed",
+      "type": "float",
+      "print_string": "L%{int(self.race_progress*100):<3}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "name": "num_pitstops",
+      "description": "Number of pit stops made",
+      "type": "int",
+      "print_string": "PS{self.num_pitstops:<2}",
+      "for_training": false,
+      "is_ordinal": true,
+      "ordinal_values": {
+        "min": 1,
+        "max": 10,
+        "step": 1
+      }
+    },
+    {
+      "name": "current_tyre",
+      "description": "Current tyre compound",
+      "type": "TyreCompound",
+      "print_string": "{str(self.current_tyre)[0]}",
+      "for_training": true,
+      "is_categorical": true
+    },
+    {
+      "name": "tyre_degradation",
+      "description": "Current tyre degradation",
+      "type": "float",
+      "print_string": "TD{self.tyre_degradation:<6.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 100
+      }
+    },
+    {
+      "name": "scaled_tyre_degradation",
+      "description": "Scaled tyre degradation [0, 1]",
+      "type": "float",
+      "print_string": "STD{self.scaled_tyre_degradation:<6.3f}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "name": "tyre_age",
+      "description": "Current tyre age",
+      "type": "float",
+      "print_string": "T%{int(self.tyre_age*100):<3}",
+      "is_continuous": true,
+      "for_training": false,
+      "bounds": {
+        "min": 0,
+        "max": 100
+      }
+    },
+    {
+      "name": "stint_length",
+      "description": "Length of the current stint",
+      "type": "float",
+      "print_string": "SL{self.stint_length:<4.1f}",
+      "for_training": false,
+      "is_ordinal": true,
+      "ordinal_values": {
+        "min": 0,
+        "max": 100,
+        "step": 1
+      }
+    },
+    {
+      "name": "scaled_stint_length",
+      "description": "Scaled length of the current stint [0, 1]",
+      "type": "float",
+      "print_string": "SSL{self.scaled_stint_length:<6.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "name": "soft_available",
+      "description": "Soft tyre available to pit onto",
+      "type": "bool",
+      "print_string": "{'[S]' if self.soft_available else '[ ]'}",
+      "for_training": true,
+      "is_categorical": true
+    },
+    {
+      "name": "medium_available",
+      "description": "Medium tyre available to pit onto",
+      "type": "bool",
+      "print_string": "{'[M]' if self.medium_available else '[ ]'}",
+      "for_training": true,
+      "is_categorical": true
+    },
+    {
+      "name": "hard_available",
+      "description": "Hard tyre available to pit onto",
+      "type": "bool",
+      "print_string": "{'[H]' if self.hard_available else '[ ]'}",
+      "for_training": true,
+      "is_categorical": true
+    },
+    {
+      "name": "fuel",
+      "description": "Current fuel level",
+      "type": "float",
+      "print_string": "F{self.fuel:<7.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 110
+      }
+    },
+    {
+      "name": "fuel_consumption",
+      "description": "Fuel consumption per lap",
+      "type": "float",
+      "print_string": "FC{self.fuel_consumption:<6.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 10
+      }
+    },
+    {
+      "name": "is_damaged",
+      "description": "Is the car damaged",
+      "type": "bool",
+      "print_string": "{' D' if self.is_damaged else 'ND'}",
+      "for_training": false,
+      "is_categorical": true
+    },
+    {
+      "name": "gap_ahead",
+      "description": "Gap to the driver ahead",
+      "type": "float",
+      "print_string": "GA{self.gap_ahead:<7.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": -1000,
+        "max": 1000
+      }
+    },
+    {
+      "name": "scaled_gap_ahead",
+      "description": "Scaled gap to the driver ahead [-1, 1]",
+      "type": "float",
+      "print_string": "SGA{self.scaled_gap_ahead:<6.3f}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": -1,
+        "max": 1
+      }
+    },
+    {
+      "name": "gap_behind",
+      "description": "Gap to the driver behind",
+      "type": "float",
+      "print_string": "GB{self.gap_behind:<7.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": -1000,
+        "max": 1000
+      }
+    },
+    {
+      "name": "scaled_gap_behind",
+      "description": "Scaled gap to the driver behind [-1, 1]",
+      "type": "float",
+      "print_string": "SGB{self.scaled_gap_behind:<6.3f}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": -1,
+        "max": 1
+      }
+    },
+    {
+      "name": "gap_to_leader",
+      "description": "Gap to the leader",
+      "type": "float",
+      "print_string": "GL{self.gap_to_leader:<7.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": -1000,
+        "max": 1000
+      }
+    },
+    {
+      "name": "scaled_gap_to_leader",
+      "description": "Scaled gap to the leader [-1, 1]",
+      "type": "float",
+      "print_string": "SGL{self.scaled_gap_to_leader:<6.3f}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": -1,
+        "max": 1
+      }
+    },
+    {
+      "name": "last_lap_time",
+      "description": "Last lap time",
+      "type": "float",
+      "print_string": "LL{self.last_lap_time:<7.3f} ",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 50,
+        "max": 180
+      }
+    },
+    {
+      "name": "reference_lap_time",
+      "description": "Reference lap time",
+      "type": "float",
+      "print_string": "RL{self.reference_lap_time:<7.3f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 50,
+        "max": 180
+      }
+    },
+    {
+      "name": "last_lap_to_reference",
+      "description": "The ratio of the last lap time to the reference lap time",
+      "type": "float",
+      "print_string": "LT%{int(self.last_lap_to_reference*100):<3}",
+      "for_training": true,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 2
+      }
+    },
+    {
+      "name": "scaled_last_lap_to_reference",
+      "description": "Scaled ratio of the last lap time to the reference lap time",
+      "type": "float",
+      "print_string": "SLT{self.scaled_last_lap_to_reference:<3.2f}",
+      "for_training": false,
+      "is_continuous": true,
+      "bounds": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    {
+      "name": "valid_finish",
+      "description": "Is the finish valid",
+      "type": "bool",
+      "print_string": "{' V' if self.valid_finish else 'NV'}",
+      "for_training": true,
+      "is_categorical": true
+    }
+  ]
+}

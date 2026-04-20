@@ -1,0 +1,26 @@
+#!/bin/bash
+#PBS -lselect=1:ncpus=1:mem=8gb:ngpus=1:gpu_type=RTX6000
+#PBS -lwalltime=72:00:00
+#PBS -o "/rds/general/user/dt120/home/Work/f1-race-strategy/HPC Logs"
+#PBS -e "/rds/general/user/dt120/home/Work/f1-race-strategy/HPC Logs"
+
+cd $PBS_O_WORKDIR
+
+module load anaconda3/personal
+source activate venv
+
+# Simulation Details
+EXPERIMENT_NUMBER=9
+NUM_EPISODES=100000
+YEARS=2023
+TRACKS="BAHRAIN"
+
+# Hyperparameters:
+REPLAY_BUFFER_SIZE=100
+
+python train_drqn.py \
+    --experiment_number $EXPERIMENT_NUMBER \
+    --num_episodes $NUM_EPISODES \
+    --years $YEARS \
+    --tracks $TRACKS \
+    --replay_buffer_size $REPLAY_BUFFER_SIZE \
