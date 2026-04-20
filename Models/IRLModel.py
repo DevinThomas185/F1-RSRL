@@ -12,7 +12,7 @@ from Classes.RaceStrategy.SimpleRaceStrategy import SimpleRaceStrategy
 from Classes.ConsoleLogger import ConsoleLogger
 
 from Models.StrategyRLModel import StrategyRLModel
-from Models.MercedesLinearModel import MercedesLinearModel
+from Models.MercedesProbabilisticModel import MercedesProbabilisticModel
 
 from confidential.MercedesRSTranslator import MercedesRSTranslator
 
@@ -183,7 +183,7 @@ class IRLModel(StrategyRLModel):
 
                 next_state = sim.step(step=simulation_step_size)
 
-                expert_action = MercedesLinearModel.infer_simple_race_strategy(
+                expert_action = MercedesProbabilisticModel.infer_simple_race_strategy(
                     state=state,
                     next_state=next_state,
                 )

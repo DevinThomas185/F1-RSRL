@@ -9,7 +9,6 @@ import pandas as pd
 
 from Classes.RaceStrategy.Pitstop import Pitstop
 from Models.DRQNModel import DRQNModel
-from Models.RandomFixedStrategyModel import RandomFixedStrategyModel
 import Models.model_utilities as utils
 from confidential.MercedesRSTranslator import MercedesRSTranslator
 from Classes.RaceStrategy.BlankRaceStrategy import BlankRaceStrategy
@@ -24,7 +23,7 @@ from Classes.Errors import (
 )
 
 from Models.StrategyRLModel import StrategyRLModel
-from Models.MercedesLinearModel import MercedesLinearModel
+from Models.MercedesProbabilisticModel import MercedesProbabilisticModel
 from Models.FixedStrategyModel import FixedStrategyModel
 from Testing.testing_results_utilities import (
     WorkerResults,
@@ -44,7 +43,9 @@ def write_results_to_file(
     if not os.path.exists(results_file):
         test_run = 0
         with open(results_file, "w") as f:
-            f.write("Test Run,Model Name,Track,Total Laps,Year,Finishing Position,Tyre Strategy\n")
+            f.write(
+                "Test Run,Model Name,Track,Total Laps,Year,Finishing Position,Tyre Strategy\n"
+            )
     else:
         test_run = pd.read_csv(results_file)["Test Run"].max() + 1
 
@@ -173,15 +174,15 @@ def model_worker(
 
         # If we are using the Mercedes Linear Model, we simulate the whole race
         # in one, otherwise we simulate one step at a time
-        if isinstance(model, MercedesLinearModel):
+        if isinstance(model, MercedesProbabilisticModel):
             step_size = 100
 
         # If we are using the DRQN Model, we need to reset the hidden state
         if isinstance(model, DRQNModel):
             model.reset_h()
 
-        # Generate a random strategy for the RandomFixedStrategyModel
-        if isinstance(model, RandomFixedStrategyModel):
+        # Generate a random strategy for the FixedStrategyModel
+        if isinstance(model, FixedStrategyModel):
             model.generate_random_strategy(track_details.Track)
 
         #### Run the simulation
@@ -273,14 +274,6 @@ if __name__ == "__main__":
     )
 
     parser.add_argument(
-        "--with_random_fixed",
-        "-r",
-        action="store_true",
-        default=False,
-        help="Whether to include the Random Fixed Strategy model for comparison",
-    )
-
-    parser.add_argument(
         "--models",
         nargs="*",
         default=[],
@@ -354,13 +347,10 @@ if __name__ == "__main__":
     models = [StrategyRLModel.load_model(model) for model in models]
 
     if args.with_mercedes:
-        models.append(MercedesLinearModel(selected_driver=44))
+        models.append(MercedesProbabilisticModel(selected_driver=44))
 
     if args.with_fixed:
         models.append(FixedStrategyModel(selected_driver=44))
-
-    if args.with_random_fixed:
-        models.append(RandomFixedStrategyModel(selected_driver=44))
 
     if len(models) == 0:
         raise ValueError("Must provide at least one model to test")

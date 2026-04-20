@@ -16,7 +16,7 @@ from Classes.ConsoleLogger import ConsoleLogger
 from F123.F123Translator import F123Translator
 from Models.DQNModel import DQNModel
 from Models.DRQNModel import DRQNModel
-from Models.MercedesLinearModel import MercedesLinearModel
+from Models.MercedesProbabilisticModel import MercedesProbabilisticModel
 from Models.StrategyRLModel import StrategyRLModel
 from RewardFunctions.RewardFunctions import thomas_reward_2
 import plotting
@@ -116,7 +116,7 @@ class F123ListenerThread(QThread):
             )
             if into_next_lap:
                 states.append(state)
-                action = MercedesLinearModel.infer_simple_race_strategy(
+                action = MercedesProbabilisticModel.infer_simple_race_strategy(
                     states[-1], state
                 )
                 actions.append(action)
@@ -325,7 +325,12 @@ class RL_Strategy_GUI(QWidget):
         self.__fi_exp_ax = fi_exp_figure.add_subplot(
             111, position=[0.1, 0.08, 0.8, 0.9]
         )
-        self.__fi_exp_ax.tick_params(axis="both", colors=Colours.LIGHT_TEXT_COLOUR, which="major", labelsize=plotting.TICK_SIZE)
+        self.__fi_exp_ax.tick_params(
+            axis="both",
+            colors=Colours.LIGHT_TEXT_COLOUR,
+            which="major",
+            labelsize=plotting.TICK_SIZE,
+        )
         self.__fi_exp_ax.set_xlabel("Absolute SHAP Value", fontsize=plotting.TITLE_SIZE)
         self.__fi_exp_ax.margins(0)
         fi_exp_figure.set_facecolor(background_colour)
@@ -1145,7 +1150,9 @@ class RL_Strategy_GUI(QWidget):
             self.ui.lbl_StatsModeFinish.setText(
                 f"{stats_tr['Finishing Position'].mode()[0]}"
             )
-        except KeyError: # If all tests failed (no mode calculated) catch and handle error
+        except (
+            KeyError
+        ):  # If all tests failed (no mode calculated) catch and handle error
             self.ui.lbl_StatsModeFinish.setText("nan")
 
         self.ui.lbl_StatsStdDev.setText(f"{stats_tr['Finishing Position'].std():.2f}")

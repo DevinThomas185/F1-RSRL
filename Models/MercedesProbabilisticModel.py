@@ -9,11 +9,11 @@ from Classes.ConsoleLogger import ConsoleLogger
 from Models.StrategyRLModel import StrategyRLModel
 
 
-class MercedesLinearModel(StrategyRLModel):
+class MercedesProbabilisticModel(StrategyRLModel):
     def __init__(
         self,
         selected_driver: int,
-        name: str = "MercedesLinearModel",
+        name: str = "MercedesProbabilisticModel",
         device: str = "cpu",
         decision_tree: DecisionTreeClassifier | None = None,
         logger: ConsoleLogger = ConsoleLogger(),
