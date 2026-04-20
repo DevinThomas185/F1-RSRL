@@ -1,20 +1,19 @@
 # Explainable Reinforcement Learning for Formula One Race Strategy
 
-This repository contains the code for the project "Explainable Reinforcement Learning for Formula One Race Strategy" by Devin Thomas.
+This repository contains the code for the project "Race Strategy Reinforcement Learning: Optimising Pitstop Strategy with Emergent Tactics".
 
-Thanks goes to the following people from Imperial College London for their help and support:
+Thanks goes to the following people from Imperial College London and Kings College London for their help and support:
 
-- Dr Antonio Rago
-- Dr Francesco Belardinelli
-- Mr Junqi Jiang
-- Mr Avinash Kori
-- Dr Wenjia Bai.
+- Dr. Antonio Rago
+- Dr. Francesco Belardinelli
+- Mr. Junqi Jiang
+- Mr. Avinash Kori
 
 This project would not be possible without the support of Mercedes-AMG Petronas Formula One Team, and the following people in particular:
 
-- Mr Joseph McMillan
-- Mr Stuart Sale
-- Mr Steffen Winkler.
+- Mr. Joseph McMillan
+- Dr. Stuart Sale
+- Mr. Steffen Winkler.
 
 
 ## GUI
