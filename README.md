@@ -1,6 +1,6 @@
 # Explainable Reinforcement Learning for Formula One Race Strategy
 
-This repository contains the code for the project "Race Strategy Reinforcement Learning: Optimising Pitstop Strategy with Emergent Tactics".
+This repository contains the code for the project "Race Strategy Reinforcement Learning: Optimising Pitstop Strategy with Emergent Tactics" by Thomas et al.
 
 Thanks goes to the following people from Imperial College London and Kings College London for their help and support:
 
